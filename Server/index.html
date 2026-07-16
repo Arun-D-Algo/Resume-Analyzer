@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/4d5d4b57cb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div id="toast"></div>
+
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="loader-card">
+            <div class="spinner"></div>
+            <h2>Analyzing resume</h2>
+            <p id="loadingText">Uploading PDF...</p>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <section class="left-panel">
+
+            <div class="hero">
+                <div class="tab">Case File</div>
+                <h1>Resume Analyzer</h1>
+                <p>
+                    Upload a resume and, optionally, a job description.
+                    We'll review it and return a score, strengths,
+                    weaknesses and concrete suggestions.
+                </p>
+            </div>
+
+            <div class="upload-card">
+                <div class="drop-zone" id="dropZone">
+                    <i class="fa-solid fa-file-arrow-up"></i>
+                    <h3>Drag &amp; drop resume</h3>
+                    <p>PDF files only</p>
+                    <button id="chooseBtn" type="button">Choose Resume</button>
+                    <input type="file" id="resumeInput" accept=".pdf" hidden>
+                    <p id="selectedFile" class="selected-file">No file selected</p>
+                </div>
+            </div>
+
+            <div class="jd-card">
+                <h3>Job description <span>&mdash; optional</span></h3>
+                <textarea id="jobDescription" placeholder="Paste the job description here..."></textarea>
+            </div>
+
+            <button id="analyzeBtn" class="analyze-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Analyze Resume
+            </button>
+
+        </section>
+
+        <section class="right-panel">
+
+            <div class="welcome-card" id="welcomeCard">
+                <i class="fa-solid fa-folder-open"></i>
+                <h2>Ready when you are</h2>
+                <p>
+                    Upload a resume and select <strong>Analyze Resume</strong>.
+                    Your report will be filed here.
+                </p>
+            </div>
+
+            <div class="results hidden" id="results">
+
+                <div class="score-card">
+                    <h2>Overall Score</h2>
+                    <div class="score-circle">
+                        <span id="scoreValue">0</span>
+                        <small>/ 100</small>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="processingTime">Processed in 0 sec</p>
+                </div>
+
+                <div class="cards">
+
+                    <div class="info-card">
+                        <div class="card-header">
+                            <span class="tag tag-strength">Strengths</span>
+                        </div>
+                        <ul id="strengthList"></ul>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="card-header">
+                            <span class="tag tag-weakness">Weaknesses</span>
+                        </div>
+                        <ul id="weaknessList"></ul>
+                    </div>
+
+                    <div class="info-card suggestion-card">
+                        <div class="card-header">
+                            <span class="tag tag-suggestion">Suggestions</span>
+                        </div>
+                        <ul id="suggestionList"></ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <footer>
+        <p>
+            <strong>Hopefully your resume scores better than mine did the first time.</strong>
+        </p>
+    </footer>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
