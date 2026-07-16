@@ -108,7 +108,7 @@ async def analyze_endpoint(
 
     except Exception as gemini_error:
 
-        logger.error(gemini_error)
+        logger.exception("Gemini Error")
 
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
