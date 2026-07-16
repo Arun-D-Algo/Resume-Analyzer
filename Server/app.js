@@ -1,3 +1,6 @@
+const emailSection = document.getElementById("emailSection");
+const emailInput = document.getElementById("emailInput");
+const emailBtn = document.getElementById("emailBtn");
 const chooseBtn = document.getElementById("chooseBtn");
 const resumeInput = document.getElementById("resumeInput");
 const selectedFile = document.getElementById("selectedFile");
@@ -25,6 +28,7 @@ const toast = document.getElementById("toast");
 const jobDescription = document.getElementById("jobDescription");
 
 let selectedResume = null;
+let latestAnalysis = null;
 
 const API_URL = "https://resume-analyzer-14e7.onrender.com/analyze";
 
@@ -99,7 +103,6 @@ dropZone.addEventListener("drop", (e) => {
 
     selectedFile.textContent = file.name;
 
-    // keep the native file input in sync
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(file);
     resumeInput.files = dataTransfer.files;
@@ -193,7 +196,6 @@ analyzeBtn.addEventListener("click", async () => {
 
         formData.append("file", selectedResume);
 
-        // We'll wire this into FastAPI later
         formData.append(
             "job_description",
             jobDescription.value
@@ -226,9 +228,13 @@ analyzeBtn.addEventListener("click", async () => {
 
         const data = await response.json();
 
+        latestAnalysis = data;
+
         welcomeCard.classList.add("hidden");
 
         results.classList.remove("hidden");
+
+        emailSection.classList.remove("hidden");
 
         animateScore(data.score);
 
@@ -280,5 +286,96 @@ analyzeBtn.addEventListener("click", async () => {
         console.error(error);
 
     }
+
+});
+
+emailBtn.addEventListener("click", async () => {
+
+    const email = emailInput.value.trim();
+
+    if (!email) {
+
+        showToast("Please enter your email address.");
+
+        return;
+
+    }
+
+    if (!latestAnalysis) {
+
+        showToast("Analyze a resume first.");
+
+        return;
+
+    }
+
+    emailBtn.disabled = true;
+
+    emailBtn.innerHTML =
+        `<i class="fa-solid fa-spinner fa-spin"></i> Sending...`;
+
+    try {
+
+        const response = await fetch(
+
+            "https://resume-analyzer-14e7.onrender.com/send-email",
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    email: email,
+
+                    filename: selectedResume.name,
+
+                    score: latestAnalysis.score,
+
+                    processing_time: latestAnalysis.processing_time,
+
+                    strengths: latestAnalysis.strengths,
+
+                    weaknesses: latestAnalysis.weaknesses,
+
+                    suggestions: latestAnalysis.suggestions
+
+                })
+
+            }
+
+        );
+
+        if (!response.ok) {
+
+            const err = await response.json();
+
+            throw new Error(err.detail);
+
+        }
+
+        showToast("Email sent successfully!");
+        emailInput.value = "";
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        showToast(error.message);
+
+    }
+
+    emailBtn.disabled = false;
+
+    emailBtn.innerHTML =
+        `<i class="fa-solid fa-paper-plane"></i> Email Report`;
 
 });
