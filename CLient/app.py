@@ -32,7 +32,7 @@ app = FastAPI(
     version="1.0.0",
 )
 
-N8N_WEBHOOK = "http://localhost:5678/webhook/resume-analysis"
+N8N_WEBHOOK = "http://localhost:5678/webhook-test/resume-analysis"
 
 app.add_middleware(
     CORSMiddleware,
