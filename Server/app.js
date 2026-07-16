@@ -26,7 +26,7 @@ const jobDescription = document.getElementById("jobDescription");
 
 let selectedResume = null;
 
-const API_URL = "https://resume-analyzer-l4e7.onrender.com/analyze";
+const API_URL = "https://resume-analyzer-14e7.onrender.com/analyze";
 
 chooseBtn.addEventListener("click", () => {
 
@@ -44,8 +44,6 @@ resumeInput.addEventListener("change", () => {
 
 });
 
-// Drag & drop support for the drop zone.
-// Clicking anywhere on the zone (not just the button) also opens the file picker.
 
 dropZone.addEventListener("click", (e) => {
 
