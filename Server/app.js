@@ -26,7 +26,7 @@ const jobDescription = document.getElementById("jobDescription");
 
 let selectedResume = null;
 
-const API_URL = "http://127.0.0.1:8000/analyze";
+const API_URL = "https://resume-analyzer-l4e7.onrender.com/analyze";
 
 chooseBtn.addEventListener("click", () => {
 
