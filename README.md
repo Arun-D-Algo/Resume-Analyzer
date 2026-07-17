@@ -44,32 +44,24 @@ After the analysis is complete, users can enter their email address and instantl
 ## Home Page
 
 
-```
 <img width="2438" height="1494" alt="image" src="https://github.com/user-attachments/assets/bcbf4612-4322-4e50-bd89-721c2fe03a12" />
 
-```
 
 ---
 
 ## Email Report
 
 
-```
 <img width="1984" height="1086" alt="image" src="https://github.com/user-attachments/assets/1694d981-7bbb-4f9c-acc2-f9a0a8b41481" />
 
-```
-
----
 
 ## n8n Workflow
 
 The automation pipeline responsible for sending personalized email reports.
 
 
-```
 <img width="1304" height="406" alt="image" src="https://github.com/user-attachments/assets/ffa8df06-6682-43c9-a834-ff3bced8f772" />
 
-```
 
 ---
 
